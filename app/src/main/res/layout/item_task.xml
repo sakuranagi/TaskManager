@@ -5,13 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
-<TextView
+    <TextView
     android:id="@+id/tv_title"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="Title"
     android:textStyle="bold"
-    android:textSize="34sp"/>
+    android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/tv_description"
@@ -21,7 +21,6 @@
         app:layout_constraintStart_toStartOf="@id/tv_title"
         app:layout_constraintEnd_toEndOf="@id/tv_title"
         android:text="Description"
-        android:textSize="20sp"
-        android:textStyle="italic"/>
+        android:textSize="20sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

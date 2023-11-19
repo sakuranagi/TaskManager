@@ -22,4 +22,14 @@
         android:name="mbk.io.taskmanager.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/taskFragment"
+        android:name="mbk.io.taskmanager.ui.task.TaskFragment"
+        android:label="Task"
+        tools:layout="@layout/fragment_task" />
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="mbk.io.taskmanager.ui.onboarding.OnBoardingFragment"
+        android:label="fragment_on_boarding"
+        tools:layout="@layout/fragment_on_boarding" />
 </navigation>

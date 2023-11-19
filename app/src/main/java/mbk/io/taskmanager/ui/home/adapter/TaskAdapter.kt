@@ -1,13 +1,18 @@
-package mbk.io.taskmanager.ui.home
+package mbk.io.taskmanager.ui.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import mbk.io.taskmanager.databinding.ItemTaskBinding
+import mbk.io.taskmanager.model.Task
 
-class TaskAdapter(private val taskList: List<Task>): RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
+class TaskAdapter(): RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
-
+    private val taskList = arrayListOf<Task>()
+    fun addTask(task: Task){
+        taskList.add(0, task)
+        notifyItemChanged(0)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
