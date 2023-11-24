@@ -54,4 +54,7 @@ dependencies {
 
     // Сircle indicator
     implementation 'me.relex:circleindicator:2.1.6'
+
+    //Circle imageview
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
