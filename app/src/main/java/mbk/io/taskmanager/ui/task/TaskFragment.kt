@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
+import mbk.io.taskmanager.App
 import mbk.io.taskmanager.R
 import mbk.io.taskmanager.databinding.FragmentTaskBinding
 import mbk.io.taskmanager.databinding.ItemTaskBinding
@@ -31,15 +32,19 @@ class TaskFragment : Fragment() {
             if (binding.etTitle.text.toString().trim().isEmpty()){
                 binding.etTitle.error = "Enter Title"
             }else {
-                val data = Task(
-                    title = binding.etTitle.text.toString(),
-                    description = binding.etDescription.text.toString()
-                )
-                setFragmentResult(TASK_RESULT_KEY, bundleOf(TASK_KEY to data))
-                findNavController().navigateUp()
+                save()
 
             }
         }
+    }
+
+    private fun save(){
+        val data = Task(
+            title = binding.etTitle.text.toString(),
+            description = binding.etDescription.text.toString()
+        )
+        App.db.taskDao().insert(data)
+        findNavController().navigateUp()
     }
 
     companion object{

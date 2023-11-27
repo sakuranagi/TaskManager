@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import mbk.io.taskmanager.databinding.ItemTaskBinding
 import mbk.io.taskmanager.model.Task
 
-class TaskAdapter(): RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
+class TaskAdapter(val onLongClickItem:(task: Task)-> Unit): RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
     private val taskList = arrayListOf<Task>()
-    fun addTask(task: Task){
-        taskList.add(0, task)
-        notifyItemChanged(0)
-    }
+    fun addTasks(tasks: List<Task>){
+        taskList.clear()
+        taskList.addAll(tasks)
+        notifyDataSetChanged()    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
@@ -31,6 +31,11 @@ class TaskAdapter(): RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
                 tasks.apply {
                     tvTitle.text = title
                     tvDescription.text = description
+                }
+
+                itemView.setOnLongClickListener{
+                    onLongClickItem(tasks)
+                    true
                 }
             }
 
