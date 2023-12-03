@@ -6,7 +6,9 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
+import mbk.io.taskmanager.R
 import mbk.io.taskmanager.databinding.ItemOnboardingBinding
 import mbk.io.taskmanager.model.OnBoarding
 import mbk.io.taskmanager.ui.home.adapter.TaskAdapter
@@ -14,9 +16,9 @@ import mbk.io.taskmanager.ui.home.adapter.TaskAdapter
 class OnBoardingAdapter(private val onClick:()-> Unit): Adapter<OnBoardingAdapter.OnBoardingViewHolder>(){
 
 private val  list = arrayListOf<OnBoarding>(
-    OnBoarding("https://ryohkei.com/wp-content/uploads/2020/01/welcome1.7.jpg", "Добро пожаловать! ", "Мы рады, что вы с нами"),
-    OnBoarding("https://cdn-icons-png.flaticon.com/512/1950/1950715.png","Организуйте свой день",""),
-    OnBoarding("https://static.thenounproject.com/png/2587261-200.png","Ничего не забывайте!","Будьте продуктивны вместе  с Task Manager")
+    OnBoarding(R.raw.anim, "Добро пожаловать в Task Manager! ", "Мы рады, что вы с нами"),
+    OnBoarding(R.raw.anim2,"Добавляйте задачи","Нажмите на задачу, чтобы отредактировать ее."),
+    OnBoarding(R.raw.last_anim,"Будьте продуктивны","и не забывайте о важных делах!")
 )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OnBoardingViewHolder {
@@ -37,14 +39,15 @@ private val  list = arrayListOf<OnBoarding>(
                 boarding.apply {
                     tvTitle.text = title
                     tvDescription.text = description
-                    Glide.with(ivBoarding).load(boarding.image).into(ivBoarding)
+                    animationView.setAnimation(image)
+                    animationView.playAnimation()
                 }
                 btnStart.isVisible = adapterPosition == list.lastIndex
                 skip.isVisible = adapterPosition != list.lastIndex
-
                 skip.setOnClickListener{onClick()}
                 btnStart.setOnClickListener{onClick()}
             }
         }
+
     }
 }

@@ -13,6 +13,7 @@ import mbk.io.taskmanager.R
 import mbk.io.taskmanager.databinding.FragmentTaskBinding
 import mbk.io.taskmanager.databinding.ItemTaskBinding
 import mbk.io.taskmanager.model.Task
+import mbk.io.taskmanager.ui.home.HomeFragment
 
 class TaskFragment : Fragment() {
 
@@ -28,14 +29,24 @@ class TaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnSave.setOnClickListener{
-            if (binding.etTitle.text.toString().trim().isEmpty()){
-                binding.etTitle.error = "Enter Title"
-            }else {
-                save()
-
-            }
+        val task = arguments?.getSerializable(HomeFragment.TASK_EDIT_KEY) as Task?
+        if (task != null){
+            binding.btnSave.text = getString(R.string.update)
+            binding.etTitle.setText(task.title)
+            binding.etDescription.setText(task.description)
         }
+        binding.btnSave.setOnClickListener{
+            if (binding.etTitle.text.toString().isNotEmpty()){
+                if (task != null){
+                    update(task)
+                }else save()
+                    findNavController().navigateUp()
+            }else binding.etTitle.error = "Enter Title"
+        }
+    }
+
+    private fun update(task: Task) {
+        App.db.taskDao().update(task.copy(title = binding.etTitle.text.toString(), description = binding.etDescription.text.toString()))
     }
 
     private fun save(){
@@ -44,11 +55,6 @@ class TaskFragment : Fragment() {
             description = binding.etDescription.text.toString()
         )
         App.db.taskDao().insert(data)
-        findNavController().navigateUp()
     }
 
-    companion object{
-        const val TASK_RESULT_KEY = "task.result.key"
-        const val TASK_KEY = "task.key"
-    }
 }
