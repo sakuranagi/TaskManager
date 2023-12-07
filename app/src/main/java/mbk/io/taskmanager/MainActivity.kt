@@ -10,6 +10,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import mbk.io.taskmanager.data.local.Pref
 import mbk.io.taskmanager.databinding.ActivityMainBinding
 
@@ -29,7 +31,12 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        /*if(!pref.onShowed())*/ navController.navigate(R.id.onBoardingFragment)
+        if(!pref.onShowed()) navController.navigate(R.id.onBoardingFragment)
+
+        if (FirebaseAuth.getInstance().currentUser?.uid == null){
+            navController.navigate(R.id.phoneFragment)
+        }
+
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -42,8 +49,13 @@ class MainActivity : AppCompatActivity() {
                 R.id.taskFragment
             )
         )
+        val fragmentsWithoutBottomNav = setOf(
+            R.id.onBoardingFragment,
+            R.id.phoneFragment,
+            R.id.acceptFragment
+        )
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            if(destination.id == R.id.onBoardingFragment){
+            if(fragmentsWithoutBottomNav.contains(destination.id)){
                 navView.isVisible = false
                 supportActionBar?.hide()
             }else{
