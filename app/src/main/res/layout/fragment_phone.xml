@@ -10,11 +10,12 @@
     tools:context=".ui.auth.phone.PhoneFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/accept_container"
+        android:id="@+id/tel_phone"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp" >
+        android:layout_marginHorizontal="20dp"
+        app:prefixText="+996">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_phone"
